@@ -1,10 +1,12 @@
 //Represents the number of squares on one row or column of the grid
 let gridSize = 16;
 //Represents the vh value of the container.  Update this number manually if it changes
-const vhValue = 90;
+const vhValue = 80;
 
 const container = document.querySelector("#container");
 const button = document.querySelector("button");
+
+generateCells();
 
 //Takes an input and validates it to make sure its an integer from 1 to 100.  If a valid
 //input is given it clears and refills the board to the specified size.
@@ -50,5 +52,3 @@ function deleteAllCells() {
     const cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => { cell.remove(); });
 }
-
-generateCells();

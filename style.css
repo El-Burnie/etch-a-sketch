@@ -7,6 +7,16 @@ body {
     margin: 0;
 }
 
+#container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: start;
+    height: 80vh;
+    width: 80vh;
+    margin: 1vh 0;
+    border: 32px ridge rgb(255, 7, 7);
+}
+
 button {
     margin: 1vh auto;
     padding: 1vh 32px;
@@ -43,14 +53,4 @@ button {
         color: red
     }
 
-}
- 
-
-#container {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: start;
-    height: 90vh;
-    width: 90vh;
-    margin-bottom: 1vh;
 }
