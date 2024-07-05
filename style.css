@@ -33,6 +33,7 @@ button {
     font-size: 18px;
     font-weight: 700;
     color: black;
+    border-color: darkgrey;
 }
 
 #shakeItButton,
@@ -43,10 +44,17 @@ button {
 .optionButton{
     box-sizing: border-box;
     width: 44px;
+    border-width: 3px;
+    border-style: outset;
     border-radius: 22px;
     padding: 0;
-    font-size: 26px;
+    font-size: 24px;
     
+}
+
+.selected {
+    border-style: inset;
+    background-color: lightgray;
 }
 
 @keyframes colorRotate {

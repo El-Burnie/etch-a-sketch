@@ -4,13 +4,16 @@ let gridSize = 16;
 const vhValue = 80;
 
 const container = document.querySelector("#container");
-const button = document.querySelector("button");
+const shakeItButton = document.querySelector("#shakeItButton");
+const optionButtons = document.querySelectorAll(".optionButton");
+
+let selectedOption = "blackToggle";
 
 generateCells();
 
 //Takes an input and validates it to make sure its an integer from 1 to 100.  If a valid
 //input is given it clears and refills the board to the specified size.
-button.addEventListener("click", () => {
+shakeItButton.addEventListener("click", () => {
     let validInput = false;
     while (!validInput) {
         let input = prompt("How big should each side be? (1-100)");
@@ -29,6 +32,20 @@ button.addEventListener("click", () => {
         }
     }
 })
+
+optionButtons.forEach((optionButton) => {
+    optionButton.addEventListener("click", e => {
+        const selectedButton = e.target;
+        optionButtons.forEach((button) => {
+            if (selectedButton !== button) {
+                button.classList.remove("selected");
+            }
+        });
+        selectedButton.classList.add("selected");
+        selectedOption = selectedButton.id;
+        console.log(selectedOption)
+    })
+});
 
 function generateCells() {
     const cellSize = calculateCellSize()
