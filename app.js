@@ -38,7 +38,8 @@ function generateCells() {
         cell.style.width = `${cellSize}vh`;
         cell.style.height = `${cellSize}vh`;
         cell.addEventListener("mouseover", () => {
-            cell.style.backgroundColor = "black";
+            /*cell.style.backgroundColor = "black";*/
+            cell.style.backgroundColor = getRandomColor();
         });
         container.appendChild(cell);
     }
