@@ -7,6 +7,7 @@ const container = document.querySelector("#container");
 const shakeItButton = document.querySelector("#shakeItButton");
 const optionButtons = document.querySelectorAll(".optionButton");
 
+//The value here is the default option selected on page load
 let selectedOption = "blackToggle";
 
 generateCells();
@@ -55,9 +56,10 @@ function generateCells() {
         cell.style.width = `${cellSize}vh`;
         cell.style.height = `${cellSize}vh`;
         cell.addEventListener("mouseover", () => {
-            if (!cell.classList.contains("filled")) {
+            if (selectedOption === "eraserToggle") {
+                cell.style.removeProperty("background-color");
+            } else if (!cell.style.getPropertyValue("background-color")) {
                 fillCell(cell);
-                cell.classList.toggle("filled");
             }
         });
         container.appendChild(cell);
