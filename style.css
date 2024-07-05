@@ -12,7 +12,38 @@ button {
     padding: 1vh 32px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 18px;
+    font-weight: 700;
+    animation: colorRotate 12s linear 0s infinite;
 }
+
+@keyframes colorRotate {
+    from {
+        color: red;
+    }
+    14% {
+        color: orange;
+    }
+    28% {
+        color: rgb(241, 203, 33);
+    }
+    42% {
+        color: rgb(48, 216, 48);
+    }
+    56% {
+        color: blue;
+    }
+    70% {
+        color: rgb(146, 42, 219)
+    }
+    84% {
+        color: violet
+    }
+    100% {
+        color: red
+    }
+
+}
+ 
 
 #container {
     display: flex;
