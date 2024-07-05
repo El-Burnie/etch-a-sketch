@@ -11,8 +11,8 @@ let selectedOption = "blackToggle";
 
 generateCells();
 
-//Takes an input and validates it to make sure its an integer from 1 to 100.  If a valid
-//input is given it clears and refills the board to the specified size.
+//Take an input and validate it to make sure its an integer from 1 to 100.  If a valid
+//input is given, clear and refill the board to the specified size.
 shakeItButton.addEventListener("click", () => {
     let validInput = false;
     while (!validInput) {
@@ -56,12 +56,20 @@ function generateCells() {
         cell.style.height = `${cellSize}vh`;
         cell.addEventListener("mouseover", () => {
             if (!cell.classList.contains("filled")) {
-                // cell.style.backgroundColor = "black";
-                cell.style.backgroundColor = getRandomColor();
+                fillCell(cell);
                 cell.classList.toggle("filled");
             }
         });
         container.appendChild(cell);
+    }
+}
+
+//check the selected options and color the cell accordingly
+function fillCell(cell) {
+    if (selectedOption === "blackToggle") {
+        cell.style.backgroundColor = "black";
+    } else if (selectedOption === "randomToggle") {
+        cell.style.backgroundColor = getRandomColor();
     }
 }
 
