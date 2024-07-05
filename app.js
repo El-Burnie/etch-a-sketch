@@ -10,7 +10,7 @@ generateCells();
 
 //Takes an input and validates it to make sure its an integer from 1 to 100.  If a valid
 //input is given it clears and refills the board to the specified size.
-button.addEventListener("click", () =>{
+button.addEventListener("click", () => {
     let validInput = false;
     while (!validInput) {
         let input = prompt("How big should each side be? (1-100)");
@@ -37,7 +37,7 @@ function generateCells() {
         cell.classList.add("cell");
         cell.style.width = `${cellSize}vh`;
         cell.style.height = `${cellSize}vh`;
-        cell.addEventListener("mouseover", () => { 
+        cell.addEventListener("mouseover", () => {
             cell.style.backgroundColor = "black";
         });
         container.appendChild(cell);
@@ -51,4 +51,13 @@ function calculateCellSize() {
 function deleteAllCells() {
     const cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => { cell.remove(); });
+}
+
+function getRandomColor() {
+    const hexChars = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+        color += hexChars[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
