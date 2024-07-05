@@ -4,6 +4,29 @@ let gridSize = 16;
 const vhValue = 90;
 
 const container = document.querySelector("#container");
+const button = document.querySelector("button");
+
+//Takes an input and validates it to make sure its an integer from 1 to 100.  If a valid
+//input is given it clears and refills the board to the specified size.
+button.addEventListener("click", () =>{
+    let validInput = false;
+    while (!validInput) {
+        let input = prompt("How big should each side be? (1-100)");
+        if (!input) {
+            alert("The shake has been cancelled");
+            validInput = true;
+        } else if (Number.isNaN(+input)) {
+            alert("That was not a number you silly goose!")
+        } else if (+input < 1 || +input > 100) {
+            alert("That number is not in the acceptable range.")
+        } else {
+            gridSize = +input;
+            deleteAllCells();
+            generateCells();
+            validInput = true;
+        }
+    }
+})
 
 function generateCells() {
     const cellSize = calculateCellSize()
@@ -22,3 +45,10 @@ function generateCells() {
 function calculateCellSize() {
     return Math.round((vhValue / gridSize) * 10000) / 10000;
 }
+
+function deleteAllCells() {
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach((cell) => { cell.remove(); });
+}
+
+generateCells();
