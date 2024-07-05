@@ -9,6 +9,7 @@ const optionButtons = document.querySelectorAll(".optionButton");
 
 //The value here is the default option selected on page load
 let selectedOption = "blackToggle";
+let progressiveShadingEnabled = false;
 
 generateCells();
 
@@ -38,13 +39,17 @@ optionButtons.forEach((optionButton) => {
     optionButton.addEventListener("click", e => {
         const selectedButton = e.target;
         optionButtons.forEach((button) => {
-            if (selectedButton !== button) {
+            if (selectedButton !== button && selectedButton.id !== "progressiveShadingToggle") {
                 button.classList.remove("selected");
             }
         });
-        selectedButton.classList.add("selected");
-        selectedOption = selectedButton.id;
-        console.log(selectedOption)
+        if (selectedButton.id === "progressiveShadingToggle") {
+            selectedButton.classList.toggle("selected");
+            progressiveShadingEnabled = !progressiveShadingEnabled;
+        } else {
+            selectedButton.classList.add("selected");
+            selectedOption = selectedButton.id;
+        }
     })
 });
 
