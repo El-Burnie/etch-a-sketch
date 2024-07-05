@@ -1,7 +1,18 @@
 body {
     min-height: 100vh;
+    margin: 0;
 }
 
 #container {
     display: flex;
+    flex-wrap: wrap;
+    border: 1px solid black;
+    height: 90vh;
+    width: 90vh;
+    margin: auto;
+}
+
+.cell {
+    box-sizing: border-box;
+    border: 1px solid black;
 }
