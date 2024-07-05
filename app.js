@@ -38,8 +38,11 @@ function generateCells() {
         cell.style.width = `${cellSize}vh`;
         cell.style.height = `${cellSize}vh`;
         cell.addEventListener("mouseover", () => {
-            /*cell.style.backgroundColor = "black";*/
-            cell.style.backgroundColor = getRandomColor();
+            if (!cell.classList.contains("filled")) {
+                // cell.style.backgroundColor = "black";
+                cell.style.backgroundColor = getRandomColor();
+                cell.classList.toggle("filled");
+            }
         });
         container.appendChild(cell);
     }
