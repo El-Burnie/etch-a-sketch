@@ -5,6 +5,7 @@ body {
     justify-content: start;
     min-height: 100vh;
     margin: 0;
+    background-color: antiquewhite;
 }
 
 #container {
@@ -14,6 +15,7 @@ body {
     height: 80vh;
     width: 80vh;
     border: 32px ridge rgb(255, 7, 7);
+    background-color: rgb(230, 235, 245);
 }
 
 #buttonDiv {
