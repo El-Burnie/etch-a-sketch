@@ -38,9 +38,11 @@ button {
     border-color: darkgrey;
 }
 
-#shakeItButton,
-#randomToggle {
+#shakeItButton {
     animation: colorRotate 0.5s linear 0s infinite;
+}
+#randomToggle {
+    animation: colorRotate 1s linear 0s infinite;
 }
 
 .optionButton{

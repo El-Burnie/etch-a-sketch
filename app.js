@@ -38,11 +38,6 @@ shakeItButton.addEventListener("click", () => {
 optionButtons.forEach((optionButton) => {
     optionButton.addEventListener("click", e => {
         const selectedButton = e.target;
-        optionButtons.forEach((button) => {
-            if (selectedButton !== button && selectedButton.id !== "progressiveShadingToggle") {
-                button.classList.remove("selected");
-            }
-        });
         if (selectedButton.id === "progressiveShadingToggle") {
             selectedButton.classList.toggle("selected");
             progressiveShadingEnabled = !progressiveShadingEnabled;
@@ -50,6 +45,11 @@ optionButtons.forEach((optionButton) => {
             selectedButton.classList.add("selected");
             selectedOption = selectedButton.id;
         }
+        optionButtons.forEach((button) => {
+            if (selectedButton !== button && selectedButton.id !== "progressiveShadingToggle") {
+                button.id !== "progressiveShadingToggle" && button.classList.remove("selected");
+            }
+        });
     })
 });
 
@@ -61,8 +61,11 @@ function generateCells() {
         cell.style.width = `${cellSize}vh`;
         cell.style.height = `${cellSize}vh`;
         cell.addEventListener("mouseover", () => {
+            if (progressiveShadingEnabled && selectedOption !== "eraserToggle") {
+                increaseOpacity(cell);
+            }
             if (selectedOption === "eraserToggle") {
-                cell.style.removeProperty("background-color");
+                eraseCell(cell);
             } else if (!cell.style.getPropertyValue("background-color")) {
                 fillCell(cell);
             }
@@ -89,6 +92,12 @@ function deleteAllCells() {
     cells.forEach((cell) => { cell.remove(); });
 }
 
+function eraseCell(cell) {
+    cell.style.removeProperty("background-color");
+    cell.style.opacity = "1";
+    cell.classList.remove("shaded");
+}
+
 function getRandomColor() {
     const hexChars = "0123456789ABCDEF";
     let color = "#";
@@ -96,4 +105,16 @@ function getRandomColor() {
         color += hexChars[Math.floor(Math.random() * 16)];
     }
     return color;
+}
+
+function increaseOpacity(cell) {
+    if (!cell.classList.contains("shaded")) {
+        cell.style.opacity = "0";
+        cell.classList.add("shaded");
+    }
+    let opacity = +cell.style.getPropertyValue("opacity");
+    if (opacity < 1) {
+        opacity += 0.1;
+        cell.style.opacity = `${opacity}`;
+    }
 }
