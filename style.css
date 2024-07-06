@@ -58,6 +58,10 @@ button {
     animation: colorRotate 1s linear 0s infinite;
 }
 
+#eraser {
+    color:rgb(231, 139, 162)
+}
+
 .optionButton{
     box-sizing: border-box;
     width: 44px;
