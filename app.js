@@ -10,7 +10,7 @@ const optionButtons = document.querySelectorAll(".optionButton");
 //The value here is the default option selected on page load
 let selectedOption = "black";
 let gradualShadingEnabled = false;
-const colorOptions = ["black", "random"];
+const colorOptions = ["red", "green", "blue", "black", "random"];
 
 generateCells();
 
@@ -36,6 +36,9 @@ shakeItButton.addEventListener("click", () => {
     }
 })
 
+//Clicking an option button toggles off all other buttons (except for gradual shading)
+//Gradual shading can be on at the same time as other options to modify
+//their behavior.
 optionButtons.forEach((optionButton) => {
     optionButton.addEventListener("click", e => {
         const selectedButton = e.target;
@@ -54,6 +57,7 @@ optionButtons.forEach((optionButton) => {
     })
 });
 
+//Generates a new grid of cells in container.
 function generateCells() {
     const cellSize = calculateCellSize()
     for (let i = 0; i < (gridSize ** 2); i++) {
@@ -68,6 +72,9 @@ function generateCells() {
     }
 }
 
+//Logic to handle cell behavior on mouseover. Cells already fully colored in
+//cannot be changed to a different color. Shaded cells will be incremented
+//10% more opaque. Shaded cells can be overwritten by a non-shaded color.
 function updateCell(cell) {
     if (gradualShadingEnabled && selectedOption !== "eraser" && !cell.classList.contains("filled")) {
         increaseOpacity(cell);
@@ -83,7 +90,16 @@ function updateCell(cell) {
 
 //check the selected options and color the cell accordingly
 function fillCell(cell) {
-    if (selectedOption === "black") {
+    if (selectedOption === "red") {
+        cell.style.backgroundColor = "red";
+        cell.classList.add("red");
+    } else if (selectedOption === "green") {
+        cell.style.backgroundColor = "green";
+        cell.classList.add("green");
+    } else if (selectedOption === "blue") {
+        cell.style.backgroundColor = "blue";
+        cell.classList.add("blue");
+    } else if (selectedOption === "black") {
         cell.style.backgroundColor = "black";
         cell.classList.add("black");
     } else if (selectedOption === "random") {
@@ -99,11 +115,14 @@ function calculateCellSize() {
     return Math.round((vhValue / gridSize) * 10000) / 10000;
 }
 
+//removes all cell divs so the generateCells function can fill 
+//the container with new cells
 function deleteAllCells() {
     const cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => { cell.remove(); });
 }
 
+//resets all attributes of the cell to make it blank
 function eraseCell(cell) {
     cell.style.removeProperty("background-color");
     cell.style.opacity = "1";

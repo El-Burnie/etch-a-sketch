@@ -41,6 +41,19 @@ button {
 #shakeItButton {
     animation: colorRotate 0.5s linear 0s infinite;
 }
+
+#red {
+    color: red;
+}
+
+#green {
+    color: green;
+}
+
+#blue {
+    color: blue;
+}
+
 #random {
     animation: colorRotate 1s linear 0s infinite;
 }
