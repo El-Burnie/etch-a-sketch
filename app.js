@@ -8,8 +8,9 @@ const shakeItButton = document.querySelector("#shakeItButton");
 const optionButtons = document.querySelectorAll(".optionButton");
 
 //The value here is the default option selected on page load
-let selectedOption = "blackToggle";
-let progressiveShadingEnabled = false;
+let selectedOption = "black";
+let gradualShadingEnabled = false;
+const colorOptions = ["black", "random"];
 
 generateCells();
 
@@ -38,16 +39,16 @@ shakeItButton.addEventListener("click", () => {
 optionButtons.forEach((optionButton) => {
     optionButton.addEventListener("click", e => {
         const selectedButton = e.target;
-        if (selectedButton.id === "progressiveShadingToggle") {
+        if (selectedButton.id === "gradualShading") {
             selectedButton.classList.toggle("selected");
-            progressiveShadingEnabled = !progressiveShadingEnabled;
+            gradualShadingEnabled = !gradualShadingEnabled;
         } else {
             selectedButton.classList.add("selected");
             selectedOption = selectedButton.id;
         }
         optionButtons.forEach((button) => {
-            if (selectedButton !== button && selectedButton.id !== "progressiveShadingToggle") {
-                button.id !== "progressiveShadingToggle" && button.classList.remove("selected");
+            if (selectedButton !== button && selectedButton.id !== "gradualShading") {
+                button.id !== "gradualShading" && button.classList.remove("selected");
             }
         });
     })
@@ -61,25 +62,33 @@ function generateCells() {
         cell.style.width = `${cellSize}vh`;
         cell.style.height = `${cellSize}vh`;
         cell.addEventListener("mouseover", () => {
-            if (progressiveShadingEnabled && selectedOption !== "eraserToggle" && !cell.classList.contains("filled")) {
-                increaseOpacity(cell);
-            }
-            if (selectedOption === "eraserToggle") {
-                eraseCell(cell);
-            } else if (!cell.style.getPropertyValue("background-color")) {
-                fillCell(cell);
-            }
+            updateCell(cell);
         });
         container.appendChild(cell);
     }
 }
 
+function updateCell(cell) {
+    if (gradualShadingEnabled && selectedOption !== "eraser" && !cell.classList.contains("filled")) {
+        increaseOpacity(cell);
+    } if (selectedOption === "eraser") {
+        eraseCell(cell);
+    } else if (!cell.style.getPropertyValue("background-color")) {
+        fillCell(cell);
+    } else if (!gradualShadingEnabled && cell.classList.contains("shaded")) {
+        eraseCell(cell);
+        fillCell(cell);
+    }
+}
+
 //check the selected options and color the cell accordingly
 function fillCell(cell) {
-    if (selectedOption === "blackToggle") {
+    if (selectedOption === "black") {
         cell.style.backgroundColor = "black";
-    } else if (selectedOption === "randomToggle") {
+        cell.classList.add("black");
+    } else if (selectedOption === "random") {
         cell.style.backgroundColor = getRandomColor();
+        cell.classList.add("random");
     }
     if (!cell.classList.contains("shaded")) {
         cell.classList.add("filled");
@@ -100,6 +109,9 @@ function eraseCell(cell) {
     cell.style.opacity = "1";
     cell.classList.remove("shaded");
     cell.classList.remove("filled");
+    colorOptions.forEach((color) => {
+        cell.classList.remove(`${color}`);
+    });
 }
 
 function getRandomColor() {
@@ -117,7 +129,7 @@ function increaseOpacity(cell) {
         cell.classList.add("shaded");
     }
     let opacity = +cell.style.getPropertyValue("opacity");
-    if (opacity < 1) {
+    if (cell.classList.contains(`${selectedOption}`) && opacity < 1) {
         opacity += 0.1;
         cell.style.opacity = `${opacity}`;
     }
