@@ -76,11 +76,11 @@ function generateCells() {
 //cannot be changed to a different color. Shaded cells will be incremented
 //10% more opaque. Shaded cells can be overwritten by a non-shaded color.
 function updateCell(cell) {
-    if (gradualShadingEnabled && selectedOption !== "eraser" && !cell.classList.contains("filled")) {
-        increaseOpacity(cell);
-    } if (selectedOption === "eraser") {
+    if (selectedOption === "eraser") {
         eraseCell(cell);
-    } else if (!cell.style.getPropertyValue("background-color")) {
+    } else if (gradualShadingEnabled && !cell.classList.contains("filled")) {
+        increaseOpacity(cell);
+    } if (!cell.style.getPropertyValue("background-color")) {
         fillCell(cell);
     } else if (!gradualShadingEnabled && cell.classList.contains("shaded")) {
         eraseCell(cell);
@@ -90,21 +90,12 @@ function updateCell(cell) {
 
 //check the selected options and color the cell accordingly
 function fillCell(cell) {
-    if (selectedOption === "red") {
-        cell.style.backgroundColor = "red";
-        cell.classList.add("red");
-    } else if (selectedOption === "green") {
-        cell.style.backgroundColor = "green";
-        cell.classList.add("green");
-    } else if (selectedOption === "blue") {
-        cell.style.backgroundColor = "blue";
-        cell.classList.add("blue");
-    } else if (selectedOption === "black") {
-        cell.style.backgroundColor = "black";
-        cell.classList.add("black");
-    } else if (selectedOption === "random") {
+    if (selectedOption === "random") {
         cell.style.backgroundColor = getRandomColor();
         cell.classList.add("random");
+    } else {
+        cell.style.backgroundColor = `${selectedOption}`;
+        cell.classList.add(`${selectedOption}`);
     }
     if (!cell.classList.contains("shaded")) {
         cell.classList.add("filled");
@@ -144,7 +135,7 @@ function getRandomColor() {
 
 function increaseOpacity(cell) {
     if (!cell.classList.contains("shaded")) {
-        cell.style.opacity = "0";
+        cell.style.opacity = "0.1";
         cell.classList.add("shaded");
     }
     let opacity = +cell.style.getPropertyValue("opacity");
