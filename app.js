@@ -61,7 +61,7 @@ function generateCells() {
         cell.style.width = `${cellSize}vh`;
         cell.style.height = `${cellSize}vh`;
         cell.addEventListener("mouseover", () => {
-            if (progressiveShadingEnabled && selectedOption !== "eraserToggle") {
+            if (progressiveShadingEnabled && selectedOption !== "eraserToggle" && !cell.classList.contains("filled")) {
                 increaseOpacity(cell);
             }
             if (selectedOption === "eraserToggle") {
@@ -81,6 +81,9 @@ function fillCell(cell) {
     } else if (selectedOption === "randomToggle") {
         cell.style.backgroundColor = getRandomColor();
     }
+    if (!cell.classList.contains("shaded")) {
+        cell.classList.add("filled");
+    }
 }
 
 function calculateCellSize() {
@@ -96,6 +99,7 @@ function eraseCell(cell) {
     cell.style.removeProperty("background-color");
     cell.style.opacity = "1";
     cell.classList.remove("shaded");
+    cell.classList.remove("filled");
 }
 
 function getRandomColor() {
